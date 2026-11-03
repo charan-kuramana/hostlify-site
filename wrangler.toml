@@ -1,6 +1,16 @@
-# Cloudflare Pages — static site (no Workers/Functions needed).
-# Deploy:        npm run deploy            (production)
-# Local preview: npm run preview:cf        (Cloudflare's own routing, headers and redirects)
+# Cloudflare Workers static assets (Cloudflare's current platform for static sites; Pages now delegates here).
+# Deploy:        npm run deploy        (builds, then uploads build/client)
+# Local preview: npm run preview:cf    (Cloudflare's own routing, _headers and _redirects at http://localhost:8788)
 name = "hostlify-site"
-pages_build_output_dir = "build/client"
 compatibility_date = "2026-10-01"
+# Tiny Worker that only handles /hero/* — adds HTTP Range support so Safari (iPhone/iPad) can play the hero video
+main = "worker/index.js"
+
+[assets]
+directory = "./build/client"
+binding = "ASSETS"
+run_worker_first = ["/hero/*"]
+# Unknown URLs serve /404.html with a real 404 status
+not_found_handling = "404-page"
+# Pages are pre-rendered as <route>.html: serve /about directly and redirect /about/ → /about
+html_handling = "drop-trailing-slash"

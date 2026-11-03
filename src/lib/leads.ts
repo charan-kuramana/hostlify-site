@@ -4,6 +4,9 @@ import { site } from "@/content/site";
 import { env } from "./env";
 import { readUtm } from "./analytics";
 
+// Our Content-Security-Policy blocks eval; tell zod not to probe for it (avoids a CSP violation, same behaviour).
+z.config({ jitless: true });
+
 const e = leadForm.errors;
 
 export const leadSchema = z.object({

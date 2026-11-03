@@ -33,7 +33,7 @@ export default tseslint.config(
   },
   {
     // Node scripts and config files
-    files: ["scripts/**/*.mjs", "*.config.{js,ts}"],
+    files: ["scripts/**/*.mjs", "*.config.{js,ts}", "worker/**/*.js"],
     extends: [js.configs.recommended],
     languageOptions: { globals: globals.node },
   },

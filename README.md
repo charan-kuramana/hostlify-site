@@ -25,22 +25,27 @@ npm run dev               # http://localhost:5173
 | `npm run format` / `format:check` | Prettier (with Tailwind class sorting) |
 | `npm run check` | typecheck + lint + format check — run before every commit/PR |
 
-## Deploying (Cloudflare Pages)
+## Deploying (Cloudflare)
+
+Live: **https://hostlify-site.charank-freelance.workers.dev** (Cloudflare Workers static assets — Cloudflare's current
+platform for static sites; Pages now delegates to it).
 
 The output is plain static files in `build/client`. `scripts/postbuild.mjs` is part of the build: it writes
-`sitemap.xml` and `404.html`, inlines the CSS, defers the JS bootstrap until after first paint (this keeps Lighthouse
-performance at ~95–100), and flattens `about/index.html` → `about.html` so Cloudflare serves `/about` without a redirect.
+`sitemap.xml` and `404.html`, inlines the CSS, defers the JS bootstrap until after first paint (keeps Lighthouse
+performance at ~95–100), and flattens `about/index.html` → `about.html` so `/about` is served without a redirect.
 
 ```bash
-npx wrangler login          # once per machine — opens the browser to authorise your Cloudflare account
-npm run preview:cf          # test locally with Cloudflare's own routing, headers and redirects (http://localhost:8788)
-npm run deploy:preview      # deploy a preview URL (branch "preview")
-npm run deploy              # deploy to production (branch "main")
+npx wrangler login          # once per machine — authorise the Cloudflare account
+npm run preview:cf          # local preview with Cloudflare's routing, headers and redirects (http://localhost:8788)
+npm run deploy              # build + deploy to production
+npm run deploy:preview      # build + upload a preview version (not live)
 ```
 
-- `wrangler.toml` names the Pages project `hostlify-site`; the first `deploy` creates it.
+- `wrangler.toml` configures the assets (`not_found_handling = "404-page"`, `html_handling = "drop-trailing-slash"`).
+- `worker/index.js` runs **only** for `/hero/*` and adds HTTP Range support, which Safari needs to play the hero video.
 - `public/_headers` (security headers, immutable asset caching) and `public/_redirects` (`/demo` → `/contact`) are applied by Cloudflare.
-- Custom domain: Cloudflare dashboard → Workers & Pages → hostlify-site → Custom domains. Then set `VITE_SITE_URL` if it differs from `https://hostlify.in`.
+- Custom domain: Cloudflare dashboard → Workers & Pages → hostlify-site → Settings → Domains & Routes → Add custom domain
+  (the domain must be on the same Cloudflare account). Set `VITE_SITE_URL` if it differs from `https://hostlify.in`, then redeploy.
 - `vercel.json` and `netlify.toml` are included too if you ever switch hosts.
 
 ## Environment variables
