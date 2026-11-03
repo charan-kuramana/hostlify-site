@@ -93,6 +93,7 @@ export function PricingCards({ showCompareLink = false }: { showCompareLink?: bo
       </m.div>
       <div className="mt-8 space-y-2 text-center text-sm">
         <p>{pricingCopy.allInclude}</p>
+        <p className="font-medium text-gray-700">{pricingCopy.gstNote}</p>
         <p>
           {pricingCopy.moreThan}{" "}
           <Link to="/contact?plan=enterprise" className="font-semibold text-brand-600 underline-offset-4 hover:underline">

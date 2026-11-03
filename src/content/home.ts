@@ -7,7 +7,7 @@ export const hero = {
     titleStart: "Run your hostel,",
     titleHighlight: "not spreadsheets.",
     lead: "Bookings, rent collection, complaints, food menu and staff, in one simple app built for Indian hostels and PGs.",
-    primary: { label: "Book a free demo", href: "/demo" },
+    primary: { label: "Book a free demo", href: "/contact" },
     secondary: { label: "Watch 2-min tour" },
     micro: ["Free plan for up to 30 beds", "Setup help included", "No card required"],
   },
@@ -241,6 +241,6 @@ export const security = {
 export const finalCta = {
   title: "Ready to run a calmer hostel?",
   lead: "Move from registers and WhatsApp to one app — we'll help you set it up.",
-  primary: { label: "Book a free demo", href: "/demo" },
+  primary: { label: "Book a free demo", href: "/contact" },
   secondary: { label: "Start free", href: "/contact?plan=free" },
 } as const;

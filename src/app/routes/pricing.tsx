@@ -36,7 +36,7 @@ export default function PricingPage() {
       <EnterpriseBand />
       <StickyMobileCta
         watchId={HERO_ID}
-        href="/demo"
+        href="/contact"
         label={pricingPage.stickyCta}
         whatsappLabel={pricingPage.stickyWhatsapp}
         location="pricing_sticky"

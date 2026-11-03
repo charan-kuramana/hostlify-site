@@ -7,6 +7,6 @@ export const notFound = {
     { label: "Features", href: "/features" },
     { label: "Pricing", href: "/pricing" },
     { label: "For residents", href: "/for-residents" },
-    { label: "Book a demo", href: "/demo" },
+    { label: "Book a demo", href: "/contact" },
   ],
 } as const;

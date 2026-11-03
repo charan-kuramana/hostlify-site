@@ -37,7 +37,7 @@ export const megaMenu: readonly MegaLink[] = [
 export const megaPromo = {
   title: "See Hostlify in 15 minutes",
   body: "A quick call to understand your hostel and show you around the app.",
-  cta: { label: "Book a demo", href: "/demo" },
+  cta: { label: "Book a demo", href: "/contact" },
 } as const;
 
 export const mainNav: readonly NavLink[] = [
@@ -58,7 +58,7 @@ export const headerCopy = {
   menuOpen: "Open menu",
   menuClose: "Close menu",
   announcement: {
-    text: "🎉 Now accepting UPI rent payments via Razorpay",
+    text: "🎉 UPI rent collection with Razorpay is built in",
     link: "See how it works →",
     href: "/features/payments",
     dismiss: "Dismiss announcement",
@@ -88,7 +88,7 @@ export const footerNav = [
     title: "Resources",
     links: [
       { label: "FAQ", href: "/#faq" },
-      { label: "Book a demo", href: "/demo" },
+      { label: "Book a demo", href: "/contact" },
       { label: "For hostel owners", href: "/for-owners" },
     ],
   },
@@ -113,5 +113,4 @@ export const pageNames: Record<string, string> = {
   "/how-it-works": "How it works",
   "/about": "About",
   "/contact": "Contact",
-  "/demo": "Book a demo",
 };

@@ -22,15 +22,22 @@ export function ResidentCta() {
         <Reveal delay={0.2}>
           <p className="mx-auto mt-5 max-w-xl text-lead text-brand-100/75">{forResidents.ctaLead}</p>
           <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Button
-              href={site.links.residentSignup}
-              variant="accent"
-              size="lg"
-              arrow
-              onClick={() => track("app_signup_click", { location: "residents_final_cta" })}
-            >
-              {forResidents.signup}
-            </Button>
+            {/* Sign-up goes to the resident app — until it is live, point residents to Contact instead */}
+            {site.features.residentApp ? (
+              <Button
+                href={site.links.residentSignup}
+                variant="accent"
+                size="lg"
+                arrow
+                onClick={() => track("app_signup_click", { location: "residents_final_cta" })}
+              >
+                {forResidents.signup}
+              </Button>
+            ) : (
+              <Button href={forResidents.appSoon.cta.href} variant="accent" size="lg" arrow>
+                {forResidents.appSoon.cta.label}
+              </Button>
+            )}
             {/* Log in is hidden until the app is live — flip site.features.login */}
             {site.features.login && (
               <Button

@@ -1,0 +1,3 @@
+# Cloudflare Pages redirects
+/demo     /contact  301
+/demo/    /contact  301

@@ -48,6 +48,11 @@ export const forOwners = {
 } as const;
 
 export const forResidents = {
+  appSoon: {
+    badge: "Coming soon",
+    text: "The Hostlify resident app is launching soon. Want your hostel on it? Ask your owner or warden to get in touch.",
+    cta: { label: "Get in touch", href: "/contact" },
+  },
   eyebrow: "For students & working professionals",
   title: "Find a hostel near you.",
   titleHighlight: "Pick your exact bed.",
@@ -173,7 +178,7 @@ export const howItWorksPage = {
   stepLabel: "Step",
   checklistEyebrow: "Before we start",
   checklistLead: "Have these handy and setup goes faster. Missing something? We'll fill the gaps together.",
-  cta: { label: "Book a demo", href: "/demo" },
+  cta: { label: "Book a demo", href: "/contact" },
   secondaryCta: { label: "See pricing", href: "/pricing" },
 } as const;
 
@@ -235,7 +240,7 @@ export const contactPage = {
   illustration: "A friendly Hostlify support teammate with a headset answering chat messages",
   demoTitle: "Want a walkthrough instead?",
   demoBody: "Book a free 15-minute demo and we'll show you Hostlify with your rooms in mind.",
-  demoCta: { label: "Book a demo", href: "/demo" },
+  demoCta: { label: "Book a demo", href: "/contact" },
   planNote: (plan: string) => `You're asking about the ${plan} plan.`,
 } as const;
 
@@ -319,7 +324,7 @@ export const pricingPage = {
     title: "Running a hostel group or chain?",
     body: "Up to 10 hostels, full analytics, assisted resident import and a dedicated contact. Need more than 10? Let's plan a custom setup together.",
     cta: { label: "Talk to sales", href: "/contact?plan=enterprise" },
-    secondary: { label: "Book a demo", href: "/demo?plan=enterprise" },
+    secondary: { label: "Book a demo", href: "/contact?plan=enterprise" },
     points: ["Up to 10 hostels", "Full analytics", "Assisted resident import", "Dedicated support"],
   },
   stickyCta: "Book a demo",
@@ -336,7 +341,7 @@ export const legalCopy = {
 } as const;
 
 export const common = {
-  bookDemo: { label: "Book a demo", href: "/demo" },
+  bookDemo: { label: "Book a demo", href: "/contact" },
   seePricing: { label: "See pricing", href: "/pricing" },
   sampleData: "Sample data",
   crumbs: { home: "Home", features: "Features" },

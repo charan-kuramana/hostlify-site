@@ -51,7 +51,7 @@ export function VideoModal({ open, onOpenChange }: VideoModalProps) {
                     <Dialog.Title className="font-display text-h4 font-bold text-brand-900">{v.title}</Dialog.Title>
                     <Dialog.Description className="mt-2 max-w-[60ch] text-gray-600">{v.comingSoon}</Dialog.Description>
                     <div className="mt-5 flex flex-col gap-3 sm:flex-row">
-                      <Button href="/demo" arrow onClick={() => track("cta_click", { location: "hero_video_modal" })}>
+                      <Button href="/contact" arrow onClick={() => track("cta_click", { location: "hero_video_modal" })}>
                         {v.cta}
                       </Button>
                     </div>

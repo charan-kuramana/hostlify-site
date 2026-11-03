@@ -43,7 +43,7 @@ export const plans = [
     hostels: 1,
     beds: 75,
     features: ["Everything in Free", "Room for up to 75 beds", "Basic reports", "Email support"],
-    cta: { label: "Book a demo", href: "/demo?plan=starter" },
+    cta: { label: "Book a demo", href: "/contact?plan=starter" },
   },
   {
     id: "professional",
@@ -53,7 +53,7 @@ export const plans = [
     hostels: 3,
     beds: 200,
     features: ["Everything in Starter", "Up to 3 hostels", "Advanced revenue reports", "CSV export", "Priority support"],
-    cta: { label: "Book a demo", href: "/demo?plan=professional" },
+    cta: { label: "Book a demo", href: "/contact?plan=professional" },
     highlighted: true,
   },
   {
@@ -89,6 +89,7 @@ export const pricingCopy = {
   hostels: (n: number) => `${n} ${n === 1 ? "hostel" : "hostels"}`,
   beds: (n: number) => `Up to ${new Intl.NumberFormat("en-IN").format(n)} beds`,
   allInclude: "All plans include: secure cloud storage, resident app, online booking, complaints, announcements.",
+  gstNote: "All prices are in ₹ and exclude GST.",
   moreThan: "Need more than 10 hostels?",
   contactUs: "Contact us",
   multiHostelNote: "Multi-hostel management is rolling out — we'll set it up with you.",

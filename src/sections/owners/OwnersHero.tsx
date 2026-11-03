@@ -24,7 +24,7 @@ export function OwnersHero() {
           <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-float sm:p-8">
             <h2 className="text-h3 font-bold">{forOwners.formTitle}</h2>
             <p className="mt-1 mb-6 text-sm text-gray-500">{forOwners.formLead}</p>
-            <LeadForm source="for-owners" variant="compact" redirectOnSuccess />
+            <LeadForm source="for-owners" variant="compact" />
           </div>
         </div>
       }

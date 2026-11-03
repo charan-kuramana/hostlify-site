@@ -1,0 +1,6 @@
+# Cloudflare Pages — static site (no Workers/Functions needed).
+# Deploy:        npm run deploy            (production)
+# Local preview: npm run preview:cf        (Cloudflare's own routing, headers and redirects)
+name = "hostlify-site"
+pages_build_output_dir = "build/client"
+compatibility_date = "2026-10-01"

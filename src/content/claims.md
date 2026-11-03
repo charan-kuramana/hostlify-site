@@ -9,7 +9,7 @@ Items marked **CONFIRM** need business sign-off before launch.
 | Plan limits 1/1/3/10 hostels, 30/75/200/1,000 beds | Pricing, FAQ | hostlify-api plan seed — **CONFIRM** |
 | Reports: Basic / Advanced / Full analytics; Support: Email / Priority / Dedicated | Pricing | hostlify-api plan seed |
 | Yearly discount 20% | Pricing toggle | **PLACEHOLDER — CONFIRM** (`yearlyDiscountPercent` in `plans.ts`) |
-| Prices exclude GST | Pricing FAQ | **CONFIRM** |
+
 | Multi-hostel "rolling out" | Pricing, FAQ | Switcher is data-model only (spec §4) |
 | 8 staff roles | Home facts, staff page | `StaffController.java` sub-roles + Owner |
 | Supervisors have no finance/staff access | Roles, FAQ | `HostelAccess.java` |
@@ -28,4 +28,8 @@ Items marked **CONFIRM** need business sign-off before launch.
 | WhatsApp sales chat (91 99081 76754) | Floating button, contact, forms | Confirmed by owner — wa.me link only, number not displayed |
 | Phone number / address | Not shown | Owner: do not publish yet |
 | Log in links | Hidden (`site.features.login = false`) | Owner: hide until the app is live |
+| Resident sign-up / hostel search | Hidden (`site.features.residentApp = false`), "launching soon" note | Owner: hide until the app is live |
+| "Book a demo" | All CTAs → /contact; /demo redirects (no scheduler yet) | Owner (2026-11) |
+| Prices exclude GST | Pricing cards note, pricing FAQ | Confirmed by owner (2026-11) |
+| Yearly discount 20% | Pricing toggle | Owner: keep — discuss directly with customers |
 | Legal pages | /legal/* | **DRAFT — legal review required** (spec §23) |

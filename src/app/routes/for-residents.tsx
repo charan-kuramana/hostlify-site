@@ -2,6 +2,8 @@ import type { Route } from "./+types/for-residents";
 import { buildMeta } from "@/components/seo/meta";
 import { forResidents, seo } from "@/content/pages";
 import { LocationSearch } from "@/sections/residents/LocationSearch";
+import { AppComingSoon } from "@/sections/residents/AppComingSoon";
+import { site } from "@/content/site";
 import { ReferBand } from "@/sections/residents/ReferBand";
 import { ResidentBlocks } from "@/sections/residents/ResidentBlocks";
 import { ResidentCta } from "@/sections/residents/ResidentCta";
@@ -22,7 +24,8 @@ export default function ForResidentsPage() {
         lead={forResidents.lead}
         visual={<ResidentPhone />}
       >
-        <LocationSearch />
+        {/* Hostel search deep-links into the resident app — hidden until it is live (site.features.residentApp) */}
+        {site.features.residentApp ? <LocationSearch /> : <AppComingSoon />}
       </PageHero>
       <ResidentSteps />
       <ResidentBlocks />

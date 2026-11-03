@@ -1,6 +1,6 @@
 // Writes sitemap.xml (from the pre-rendered HTML files) and a real 404.html after `react-router build`.
-import { readdirSync, statSync, writeFileSync, copyFileSync, existsSync, readFileSync } from "node:fs";
-import { join, relative, sep } from "node:path";
+import { readdirSync, statSync, writeFileSync, copyFileSync, existsSync, readFileSync, renameSync, rmSync } from "node:fs";
+import { dirname, join, relative, sep } from "node:path";
 
 const out = "build/client";
 const site = (process.env.VITE_SITE_URL || "https://hostlify.in").replace(/\/$/, "");
@@ -70,3 +70,21 @@ for (const file of walk(out).filter((f) => f.endsWith(".html"))) {
   deferred++;
 }
 console.log(`postbuild: deferred JS bootstrap until first paint on ${deferred} page(s)`);
+
+// Flatten "about/index.html" → "about.html". Static hosts like Cloudflare Pages serve a directory index at
+// "/about/" and 308-redirect "/about" there, but all links, canonical URLs and the sitemap use "/about".
+// With "about.html", "/about" is served directly (no redirect) on Cloudflare, Vercel (cleanUrls) and Netlify.
+let flattened = 0;
+for (const file of walk(out).filter((f) => f.endsWith(`${sep}index.html`))) {
+  const dir = dirname(file);
+  if (relative(out, dir) === "") continue; // keep the root index.html (compare via relative(): Windows uses \)
+  const target = `${dir}.html`;
+  if (relative(out, dir) === "404") {
+    rmSync(dir, { recursive: true, force: true }); // already copied to /404.html above
+    continue;
+  }
+  renameSync(file, target);
+  if (readdirSync(dir).length === 0) rmSync(dir, { recursive: true, force: true });
+  flattened++;
+}
+console.log(`postbuild: flattened ${flattened} page(s) to <route>.html`);

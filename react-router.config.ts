@@ -16,7 +16,6 @@ export default {
       "/how-it-works",
       "/about",
       "/contact",
-      "/demo",
       ...legalPages.map((p) => `/legal/${p.slug}`),
       "/404",
     ];

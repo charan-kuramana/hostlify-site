@@ -121,7 +121,7 @@ export function MobileNav() {
                   )}
                 </m.nav>
                 <div className="border-t border-gray-100 p-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
-                  <Button href="/demo" size="lg" block arrow>
+                  <Button href="/contact" size="lg" block arrow>
                     {headerCopy.cta}
                   </Button>
                 </div>

@@ -148,18 +148,27 @@ export function Hero() {
                   </>
                 ) : (
                   <>
-                    <Magnetic className="inline-block w-full sm:w-auto">
-                      <Button
-                        href={site.links.discover}
-                        size="lg"
-                        arrow
-                        className="w-full sm:w-auto"
-                        onClick={() => track("app_signup_click", { location: "hero_resident" })}
-                      >
-                        {hero.resident.primary.label}
-                      </Button>
-                    </Magnetic>
-                    <Button href={hero.resident.secondary.href} variant="outline" size="lg" className="w-full sm:w-auto">
+                    {/* Resident app links are hidden until the app is live — flip site.features.residentApp */}
+                    {site.features.residentApp && (
+                      <Magnetic className="inline-block w-full sm:w-auto">
+                        <Button
+                          href={site.links.discover}
+                          size="lg"
+                          arrow
+                          className="w-full sm:w-auto"
+                          onClick={() => track("app_signup_click", { location: "hero_resident" })}
+                        >
+                          {hero.resident.primary.label}
+                        </Button>
+                      </Magnetic>
+                    )}
+                    <Button
+                      href={hero.resident.secondary.href}
+                      variant={site.features.residentApp ? "outline" : "primary"}
+                      arrow={!site.features.residentApp}
+                      size="lg"
+                      className="w-full sm:w-auto"
+                    >
                       {hero.resident.secondary.label}
                     </Button>
                   </>

@@ -1,5 +1,6 @@
 import { Check } from "lucide-react";
-import type { Route } from "./+types/demo";
+// Not registered in routes.ts while /demo is retired, so it uses the generic type instead of ./+types/demo.
+import type { MetaFunction } from "react-router";
 import { buildMeta } from "@/components/seo/meta";
 import { demoPage, seo } from "@/content/pages";
 import { DemoExpect } from "@/sections/demo/DemoExpect";
@@ -8,7 +9,7 @@ import { Scheduler } from "@/sections/demo/Scheduler";
 import { PageHero } from "@/sections/shared/PageHero";
 import { useClientSearchParam } from "@/sections/shared/useClientSearchParam";
 
-export const meta: Route.MetaFunction = () => buildMeta({ ...seo.demo, path: "/demo" });
+export const meta: MetaFunction = () => buildMeta({ ...seo.demo, path: "/demo" });
 
 export default function DemoPage() {
   const booked = useClientSearchParam("booked") === "1";

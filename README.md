@@ -25,17 +25,23 @@ npm run dev               # http://localhost:5173
 | `npm run format` / `format:check` | Prettier (with Tailwind class sorting) |
 | `npm run check` | typecheck + lint + format check — run before every commit/PR |
 
-## Deploying
+## Deploying (Cloudflare Pages)
 
-The output is plain static files in `build/client`. Deploy it exactly as `npm run build` produces it —
-`scripts/postbuild.mjs` is part of the build. It writes `sitemap.xml` and `404.html`, inlines the CSS, and
-defers the JS bootstrap until after first paint (this is what keeps Lighthouse performance at ~95–100).
+The output is plain static files in `build/client`. `scripts/postbuild.mjs` is part of the build: it writes
+`sitemap.xml` and `404.html`, inlines the CSS, defers the JS bootstrap until after first paint (this keeps Lighthouse
+performance at ~95–100), and flattens `about/index.html` → `about.html` so Cloudflare serves `/about` without a redirect.
 
-- **Vercel:** import the repo. `vercel.json` sets the build command, output directory and security headers.
-- **Netlify:** `netlify.toml` and `public/_headers` are included.
-- **Cloudflare Pages:** build command `npm run build`, output `build/client`. `public/_headers` is picked up automatically.
+```bash
+npx wrangler login          # once per machine — opens the browser to authorise your Cloudflare account
+npm run preview:cf          # test locally with Cloudflare's own routing, headers and redirects (http://localhost:8788)
+npm run deploy:preview      # deploy a preview URL (branch "preview")
+npm run deploy              # deploy to production (branch "main")
+```
 
-Set the environment variables from `.env.example` in the host's dashboard.
+- `wrangler.toml` names the Pages project `hostlify-site`; the first `deploy` creates it.
+- `public/_headers` (security headers, immutable asset caching) and `public/_redirects` (`/demo` → `/contact`) are applied by Cloudflare.
+- Custom domain: Cloudflare dashboard → Workers & Pages → hostlify-site → Custom domains. Then set `VITE_SITE_URL` if it differs from `https://hostlify.in`.
+- `vercel.json` and `netlify.toml` are included too if you ever switch hosts.
 
 ## Environment variables
 
@@ -55,6 +61,9 @@ Never put secrets in `VITE_*` variables, because they ship to the browser.
 
 - `site.features.login` in `src/content/site.ts` — `false` hides every "Log in" entry point (header, mobile menu, footer,
   resident page). Set it to `true` once the app at `VITE_APP_URL` is live.
+- `site.features.residentApp` — `false` hides resident sign-up, "Find a hostel near me" and the hostel search
+  (replaced by a "launching soon" note). Set it to `true` once the resident app is live.
+- `/demo` is retired until a scheduler exists: all "Book a demo" buttons go to `/contact`. See `src/app/routes.ts` to restore.
 - `site.contact.phone` / `site.contact.address` — empty, so nothing is shown. Fill them in to publish.
 
 ## Where things live
@@ -66,12 +75,10 @@ Never put secrets in `VITE_*` variables, because they ship to the browser.
 - `src/sections/` — page sections, one folder per page.
 - `src/app/routes/` — route modules (each exports `meta`).
 
-## Before launch: business sign-off needed
+## Before launch: still open
 
-Items marked **CONFIRM** in `src/content/claims.md`:
+Tracked in `src/content/claims.md`:
 
-1. Plan prices, and the yearly discount (currently a 20% placeholder in `src/content/plans.ts`).
-2. Legal pages (`src/content/legal.ts`) are drafts — they need legal review, the legal entity name and address.
-3. Whether prices exclude GST (pricing FAQ).
-4. The domain (`hostlify.in`) used for canonical URLs and the sitemap.
-5. A lead-form backend (`VITE_WEB3FORMS_KEY` or `VITE_LEAD_ENDPOINT`).
+1. Domain `hostlify.in` — purchased, pending activation. Connect it in Cloudflare once it is active.
+2. Legal pages (`src/content/legal.ts`) stay as drafts until the app is built — then add the legal entity name and address (Razorpay checks these).
+3. When the apps go live: flip `site.features.login` and `site.features.residentApp`.

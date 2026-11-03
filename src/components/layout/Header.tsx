@@ -89,7 +89,7 @@ export function Header() {
             </div>
           )}
           <Button
-            href="/demo"
+            href="/contact"
             size="sm"
             className={cn("h-10", !minimal && "hidden sm:inline-flex")}
             onClick={() => track("cta_click", { location: "header" })}

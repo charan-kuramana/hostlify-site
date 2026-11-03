@@ -29,16 +29,19 @@ export function ReferBand() {
         </span>
         <h2 className="mx-auto mt-6 max-w-2xl text-h2 font-bold text-white">{refer.title}</h2>
         <p className="mx-auto mt-4 max-w-xl text-lead text-white">{refer.body}</p>
-        <Button
-          href={site.links.residentSignup}
-          variant="white"
-          size="lg"
-          className="mt-8 text-accent-600"
-          arrow
-          onClick={() => track("app_signup_click", { location: "residents_refer" })}
-        >
-          {forResidents.referCta}
-        </Button>
+        {/* Sign-up goes to the resident app — hidden until it is live (site.features.residentApp) */}
+        {site.features.residentApp && (
+          <Button
+            href={site.links.residentSignup}
+            variant="white"
+            size="lg"
+            className="mt-8 text-accent-600"
+            arrow
+            onClick={() => track("app_signup_click", { location: "residents_refer" })}
+          >
+            {forResidents.referCta}
+          </Button>
+        )}
         <p className="mt-4 text-sm text-white">{refer.note}</p>
       </m.div>
     </Section>

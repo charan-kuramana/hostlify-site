@@ -65,7 +65,11 @@ export const pricingFaqs = [
     q: "What is your refund policy?",
     a: "See our Refund & Cancellation Policy for subscription refunds. Rent refunds to residents are handled by each hostel owner.",
   },
-  { id: "gst", q: "Do prices include GST?", a: "Prices are shown before GST. Applicable GST is added to your subscription invoice." },
+  {
+    id: "gst",
+    q: "Do prices include GST?",
+    a: "No — all prices are shown excluding GST. Applicable GST is added to your subscription invoice.",
+  },
   {
     id: "free-limits",
     q: "What happens if I exceed 30 beds on Free?",

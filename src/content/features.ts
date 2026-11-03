@@ -568,7 +568,7 @@ export const featureDeepCopy = {
   workflowEyebrow: "How it works",
   relatedEyebrow: "Keep exploring",
   relatedCta: "Explore",
-  primaryCta: { label: "Book a demo", href: "/demo" },
+  primaryCta: { label: "Book a demo", href: "/contact" },
   secondaryCta: { label: "See pricing", href: "/pricing" },
   ctaTitle: (name: string) => `See ${name.toLowerCase()} working for your hostel.`,
 } as const;

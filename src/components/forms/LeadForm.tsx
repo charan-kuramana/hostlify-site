@@ -2,7 +2,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { AnimatePresence, m } from "motion/react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router";
 import { MessageCircle } from "lucide-react";
 import { leadForm } from "@/content/pages";
 import { whatsappHref } from "@/content/site";
@@ -17,17 +16,14 @@ type LeadFormProps = {
   source: LeadSource;
   /** compact = name, phone, hostel, city, beds only (landing-page hero) */
   variant?: "full" | "compact" | "contact";
-  /** redirect to /demo?booked=1 on success (spec §22.1) */
-  redirectOnSuccess?: boolean;
   className?: string;
 };
 
 type Status = "idle" | "success" | "mailto" | "error";
 
-export function LeadForm({ source, variant = "full", redirectOnSuccess = false, className }: LeadFormProps) {
+export function LeadForm({ source, variant = "full", className }: LeadFormProps) {
   const [status, setStatus] = useState<Status>("idle");
   const [started, setStarted] = useState(false);
-  const navigate = useNavigate();
   const wa = whatsappHref();
   const f = leadForm.fields;
   const {
@@ -47,10 +43,6 @@ export function LeadForm({ source, variant = "full", redirectOnSuccess = false, 
       if (result === "mailto") {
         // Not delivered yet — the visitor still has to press Send in their email app.
         setStatus("mailto");
-        return;
-      }
-      if (redirectOnSuccess) {
-        navigate("/demo?booked=1");
         return;
       }
       setStatus("success");
