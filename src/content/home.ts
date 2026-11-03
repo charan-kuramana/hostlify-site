@@ -244,3 +244,20 @@ export const finalCta = {
   primary: { label: "Book a free demo", href: "/contact" },
   secondary: { label: "Start free", href: "/contact?plan=free" },
 } as const;
+
+/** Full-screen video landing at the top of the homepage. */
+export const videoHero = {
+  badge: "Launching soon",
+  badgeDetail: "Early access is open",
+  titleStart: "Run your hostel,",
+  titleHighlight: "not spreadsheets.",
+  rotatingPrefix: "One app for",
+  rotating: ["bookings", "rent collection", "complaints", "the mess menu", "your staff", "your whole hostel"],
+  lead: "From cash diaries, registers and WhatsApp chaos to one calm app — built for Indian hostels and PGs.",
+  primary: { label: "Book a free demo", href: "/contact" },
+  whatsapp: "Chat on WhatsApp",
+  scroll: "Scroll to explore",
+  videoLabel: "Hostlify product film: a hostel owner's messy desk of cash and registers turns into a simple app.",
+  controls: { pause: "Pause video", play: "Play video", mute: "Mute video", unmute: "Unmute video" },
+  video: { src: "/hero/hostlify-launch.mp4", poster: "/hero/hostlify-launch-poster.jpg" },
+} as const;

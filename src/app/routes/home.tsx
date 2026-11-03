@@ -5,6 +5,7 @@ import { organizationSchema, softwareSchema, websiteSchema } from "@/components/
 import { seo } from "@/content/seo";
 import { WhenVisible } from "@/components/layout/WhenVisible";
 import { Hero } from "@/sections/home/Hero/Hero";
+import { VideoHero } from "@/sections/home/VideoHero/VideoHero";
 import { TrustStrip } from "@/sections/home/TrustStrip";
 import { HowItWorks } from "@/sections/home/HowItWorks";
 import { FactTiles } from "@/sections/home/FactTiles";
@@ -30,7 +31,10 @@ export default function Home() {
   return (
     <>
       <JsonLd data={[organizationSchema, websiteSchema, softwareSchema]} />
-      <Hero />
+      <VideoHero productAnchor="product" />
+      <div id="product" className="scroll-mt-16">
+        <Hero placement="below" />
+      </div>
       <TrustStrip />
       <WhenVisible placeholderClassName="min-h-[1500px] bg-gray-50 lg:min-h-[1100px]">
         <BeforeAfter />

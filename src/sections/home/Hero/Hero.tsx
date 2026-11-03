@@ -37,7 +37,13 @@ function collectedAt(tick: number) {
   return total;
 }
 
-export function Hero() {
+type HeroProps = {
+  /** "top" = first section (extends under the header, owns the page h1). "below" = follows the video hero. */
+  placement?: "top" | "below";
+};
+
+export function Hero({ placement = "top" }: HeroProps) {
+  const top = placement === "top";
   const [audience, setAudience] = useState<Audience>("owner");
   const [switched, setSwitched] = useState(false);
   const [videoOpen, setVideoOpen] = useState(false);
@@ -93,7 +99,11 @@ export function Hero() {
       ref={sectionRef}
       onPointerMove={onPointerMove}
       onPointerLeave={onPointerLeave}
-      className="relative isolate -mt-16 overflow-x-clip bg-white pt-[calc(4rem+2rem)] pb-16 sm:pt-[calc(4rem+3.5rem)] md:pb-20 lg:-mt-[72px] lg:pt-[calc(72px+4.5rem)] lg:pb-28"
+      className={
+        top
+          ? "relative isolate -mt-16 overflow-x-clip bg-white pt-[calc(4rem+2rem)] pb-16 sm:pt-[calc(4rem+3.5rem)] md:pb-20 lg:-mt-[72px] lg:pt-[calc(72px+4.5rem)] lg:pb-28"
+          : "relative isolate overflow-x-clip bg-white pt-16 pb-16 md:pt-20 md:pb-20 lg:pt-24 lg:pb-28"
+      }
     >
       {/* Premium animated backdrop — warms up in resident mode */}
       <HeroBackdrop palette={audience === "resident" ? "accent" : "aurora"} />
@@ -108,7 +118,7 @@ export function Hero() {
                 <Eyebrow>{c.eyebrow}</Eyebrow>
               </div>
               <WordReveal
-                as="h1"
+                as={top ? "h1" : "h2"}
                 onMount
                 delay={d0}
                 parts={[{ text: c.titleStart }, { text: c.titleHighlight, highlight: true }]}

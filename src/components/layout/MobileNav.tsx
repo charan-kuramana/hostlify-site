@@ -1,3 +1,4 @@
+import { cn } from "@/lib/cn";
 import * as Dialog from "@radix-ui/react-dialog";
 import { AnimatePresence, m } from "motion/react";
 import { ChevronRight } from "lucide-react";
@@ -23,7 +24,7 @@ function Burger({ open }: { open: boolean }) {
   );
 }
 
-export function MobileNav() {
+export function MobileNav({ onDark = false }: { onDark?: boolean }) {
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();
   // Close the sheet when the route changes (adjusting state during render — no effect needed)
@@ -36,7 +37,10 @@ export function MobileNav() {
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger
-        className="grid size-11 place-items-center rounded-md text-brand-900 hover:bg-gray-100 lg:hidden"
+        className={cn(
+          "grid size-11 place-items-center rounded-md lg:hidden",
+          onDark ? "text-white hover:bg-white/10" : "text-brand-900 hover:bg-gray-100",
+        )}
         aria-label={open ? headerCopy.menuClose : headerCopy.menuOpen}
       >
         <Burger open={open} />

@@ -19,6 +19,8 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
   const animateLogo = useFirstVisit();
+  // Homepage opens on the dark video hero: use light text until the header becomes the white sticky bar.
+  const onDark = pathname === "/" && !scrolled;
 
   useMotionValueEvent(scrollY, "change", (y) => {
     const prev = scrollY.getPrevious() ?? 0;
@@ -44,14 +46,14 @@ export function Header() {
         )}
       >
         <Link to="/" aria-label="Hostlify home" className="shrink-0 rounded-md">
-          <Logo animated={animateLogo} />
+          <Logo animated={animateLogo} theme={onDark ? "dark" : "light"} />
         </Link>
 
         {!minimal && (
           <nav aria-label="Main" className="hidden items-center gap-0.5 lg:flex xl:gap-1">
             {[homeLink, null, ...mainNav].map((link) =>
               link === null ? (
-                <MegaMenu key="features" active={pathname.startsWith("/features")} />
+                <MegaMenu key="features" active={pathname.startsWith("/features")} onDark={onDark} />
               ) : (
                 <NavLink
                   key={link.href}
@@ -59,8 +61,14 @@ export function Header() {
                   end={link.href === "/"}
                   className={({ isActive }) =>
                     cn(
-                      "relative flex h-10 items-center rounded-md px-2 text-sm font-medium whitespace-nowrap transition-colors hover:text-brand-600 xl:px-3 xl:text-[15px]",
-                      isActive ? "text-brand-600" : "text-gray-700",
+                      "relative flex h-10 items-center rounded-md px-2 text-sm font-medium whitespace-nowrap transition-colors xl:px-3 xl:text-[15px]",
+                      onDark
+                        ? isActive
+                          ? "text-white"
+                          : "text-white/80 hover:text-white"
+                        : isActive
+                          ? "text-brand-600"
+                          : "text-gray-700 hover:text-brand-600",
                     )
                   }
                 >
@@ -70,7 +78,10 @@ export function Header() {
                       {isActive && (
                         <m.span
                           layoutId="nav-underline"
-                          className="absolute inset-x-2 -bottom-0.5 h-0.5 rounded-full bg-brand-600 xl:inset-x-3"
+                          className={cn(
+                            "absolute inset-x-2 -bottom-0.5 h-0.5 rounded-full xl:inset-x-3",
+                            onDark ? "bg-white" : "bg-brand-600",
+                          )}
                         />
                       )}
                     </>
@@ -91,12 +102,13 @@ export function Header() {
           <Button
             href="/contact"
             size="sm"
+            variant={onDark ? "white" : "primary"}
             className={cn("h-10", !minimal && "hidden sm:inline-flex")}
             onClick={() => track("cta_click", { location: "header" })}
           >
             {headerCopy.cta}
           </Button>
-          {!minimal && <MobileNav />}
+          {!minimal && <MobileNav onDark={onDark} />}
         </div>
       </div>
     </m.header>

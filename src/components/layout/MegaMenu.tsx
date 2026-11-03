@@ -9,7 +9,7 @@ import { iconNameOf } from "@/components/icons/Icon";
 import { toneFor } from "@/lib/iconTones";
 import { useDisclosure } from "./useDisclosure";
 
-export function MegaMenu({ active }: { active: boolean }) {
+export function MegaMenu({ active, onDark = false }: { active: boolean; onDark?: boolean }) {
   const { open, setOpen, rootProps, toggle } = useDisclosure();
   const panelId = useId();
 
@@ -21,8 +21,14 @@ export function MegaMenu({ active }: { active: boolean }) {
         aria-controls={panelId}
         onClick={toggle}
         className={cn(
-          "relative flex h-10 items-center gap-1 rounded-md px-2 text-sm font-medium whitespace-nowrap transition-colors hover:text-brand-600 xl:px-3 xl:text-[15px]",
-          active || open ? "text-brand-600" : "text-gray-700",
+          "relative flex h-10 items-center gap-1 rounded-md px-2 text-sm font-medium whitespace-nowrap transition-colors xl:px-3 xl:text-[15px]",
+          onDark
+            ? active || open
+              ? "text-white"
+              : "text-white/80 hover:text-white"
+            : active || open
+              ? "text-brand-600"
+              : "text-gray-700 hover:text-brand-600",
         )}
       >
         {headerCopy.features}

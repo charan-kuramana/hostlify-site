@@ -5,7 +5,7 @@ import type { Route } from "./+types/root";
 import "@/styles/globals.css";
 import { headerCopy } from "@/content/nav";
 import { Providers } from "@/providers/Providers";
-import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
+import { AnnouncementBar, ANNOUNCEMENT_KEY } from "@/components/layout/AnnouncementBar";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { FloatingActions, ScrollProgressBar } from "@/components/layout/GlobalExtras";
@@ -23,6 +23,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
         <meta name="theme-color" content="#0f2d4a" />
+        {/* Hide the announcement bar before first paint for visitors who dismissed it (avoids a post-load layout shift) */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{localStorage.getItem("${ANNOUNCEMENT_KEY}")==="1"&&document.documentElement.classList.add("ann-dismissed")}catch(e){}`,
+          }}
+        />
         <Meta />
         <Links />
       </head>

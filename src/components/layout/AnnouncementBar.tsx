@@ -5,7 +5,8 @@ import { Link } from "react-router";
 import { headerCopy } from "@/content/nav";
 import { useHydrated } from "@/hooks/useHydrated";
 
-const KEY = "hostlify:announcement-dismissed";
+export const ANNOUNCEMENT_KEY = "hostlify:announcement-dismissed";
+const KEY = ANNOUNCEMENT_KEY;
 
 function wasDismissed() {
   try {
@@ -15,11 +16,15 @@ function wasDismissed() {
   }
 }
 
+/**
+ * Rendered in the pre-rendered HTML (so it never pushes the page down after load — no layout shift).
+ * Visitors who dismissed it are hidden before first paint by an inline script in root.tsx that adds
+ * `html.ann-dismissed` (see globals.css); after hydration React removes it for them too.
+ */
 export function AnnouncementBar() {
-  // Hidden in pre-rendered HTML; shown after hydration unless previously dismissed.
   const hydrated = useHydrated();
   const [dismissed, setDismissed] = useState(false);
-  const open = hydrated && !dismissed && !wasDismissed();
+  const open = !dismissed && !(hydrated && wasDismissed());
 
   const dismiss = () => {
     setDismissed(true);
@@ -39,7 +44,7 @@ export function AnnouncementBar() {
           animate={{ height: "auto" }}
           exit={{ height: 0 }}
           transition={{ duration: 0.2 }}
-          className="relative overflow-hidden bg-brand-900 text-white"
+          className="announcement relative overflow-hidden bg-brand-900 text-white"
         >
           <div className="container-page flex min-h-10 items-center justify-center gap-2 py-2 pr-12 text-center text-sm">
             <span>{copy.text}</span>

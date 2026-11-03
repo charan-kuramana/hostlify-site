@@ -908,3 +908,8 @@ html:not(.ready) .rotating-border {
   content-visibility: auto;
   contain-intrinsic-size: auto 900px;
 }
+
+/* Announcement bar dismissed in a previous visit: hidden before first paint (inline script in root.tsx). */
+html.ann-dismissed .announcement {
+  display: none;
+}
