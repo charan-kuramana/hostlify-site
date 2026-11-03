@@ -1,0 +1,910 @@
+@import "tailwindcss";
+@import "@fontsource-variable/plus-jakarta-sans";
+@import "@fontsource-variable/dm-sans";
+@import "@fontsource/dm-mono/latin-400.css";
+
+/* The ₹ sign (U+20B9) lives in the fonts' "latin-ext" subset — ~50 KB of extra font downloads just for one glyph.
+   This face maps only U+20B9 to an installed system font, so latin-ext files are never fetched. */
+@font-face {
+  font-family: "Rupee";
+  src: local("Segoe UI"), local("Roboto"), local("Noto Sans"), local("Helvetica Neue"), local("Arial");
+  unicode-range: U+20B9;
+}
+
+@theme {
+  /* ---------- Fonts ---------- */
+  --font-display: "Rupee", "Plus Jakarta Sans Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Rupee", "DM Sans Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Rupee", "DM Mono", ui-monospace, monospace;
+
+  /* ---------- Brand ---------- */
+  --color-brand-50: #f0f8fd;
+  --color-brand-100: #e8f4fb;
+  --color-brand-200: #b8e0f6;
+  --color-brand-300: #7acdf2;
+  --color-brand-400: #3aaee8;
+  --color-brand-500: #1a8fd1;
+  --color-brand-600: #1d6ea8;
+  --color-brand-700: #1e5080;
+  --color-brand-800: #1a3d5c;
+  --color-brand-900: #0f2d4a;
+  --color-brand-950: #0a1929;
+
+  --color-accent-100: #fff0e8;
+  --color-accent-500: #f05a20;
+  --color-accent-600: #c4461a; /* spec #d04a1a was 4.49:1 with white — darkened for AA */
+
+  --color-success-100: #e6f7ef;
+  --color-success-500: #22a564;
+  --color-success-600: #1a7a4a;
+  --color-warning-100: #fef3c7;
+  --color-warning-500: #f59e0b;
+  --color-warning-600: #b45309;
+  --color-danger-100: #fee2e2;
+  --color-danger-500: #ef4444;
+  --color-danger-600: #b91c1c;
+  --color-info-100: #eef2ff;
+  --color-info-500: #6366f1;
+
+  /* ---------- Icon hues (lib/iconTones.ts): 100 soft bg · 300 light (on dark) · 500 mid · 700 deep (≥4.5:1 on 100) ---------- */
+  --color-sky-100: #e0f5fa;
+  --color-sky-300: #7dd6ea;
+  --color-sky-500: #0ea5c6;
+  --color-sky-700: #0b6e88;
+  --color-violet-100: #f1edfe;
+  --color-violet-300: #bcaafb;
+  --color-violet-500: #7c5cf0;
+  --color-violet-700: #5a3bc4;
+  --color-indigo-100: #ebedfd;
+  --color-indigo-300: #a7b2f8;
+  --color-indigo-500: #5b67f0;
+  --color-indigo-700: #3a43b8;
+  --color-emerald-100: #e2f6ec;
+  --color-emerald-300: #74d4a7;
+  --color-emerald-500: #16a36a;
+  --color-emerald-700: #0f7149;
+  --color-teal-100: #ddf5f1;
+  --color-teal-300: #6fd5c6;
+  --color-teal-500: #13a291;
+  --color-teal-700: #0d6f66;
+  --color-rose-100: #fdeaf0;
+  --color-rose-300: #f5a3bb;
+  --color-rose-500: #e5487a;
+  --color-rose-700: #b02558;
+  --color-amber-100: #fdf1d6;
+  --color-amber-300: #f6c95f;
+  --color-amber-500: #e9970c;
+  --color-amber-700: #975407;
+  --color-orange-100: #ffede3;
+  --color-orange-300: #fbae86;
+  --color-orange-500: #f0662a;
+  --color-orange-700: #b44515;
+
+  /* ---------- Neutrals (§6.2) ---------- */
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+  --color-gray-950: #0a0f14;
+
+  /* ---------- Type scale ---------- */
+  --text-display: clamp(2.5rem, 5vw + 1rem, 4.5rem);
+  --text-display--line-height: 1.05;
+  --text-display--letter-spacing: -0.03em;
+  --text-h1: clamp(2.25rem, 3.5vw + 1rem, 3.5rem);
+  --text-h1--line-height: 1.1;
+  --text-h1--letter-spacing: -0.025em;
+  --text-h2: clamp(1.875rem, 2.5vw + 1rem, 2.75rem);
+  --text-h2--line-height: 1.15;
+  --text-h2--letter-spacing: -0.02em;
+  --text-h3: clamp(1.25rem, 1vw + 1rem, 1.5rem);
+  --text-h3--line-height: 1.3;
+  --text-h3--letter-spacing: -0.01em;
+  --text-h4: 1.125rem;
+  --text-h4--line-height: 1.4;
+  --text-lead: clamp(1.125rem, 0.5vw + 1rem, 1.25rem);
+  --text-lead--line-height: 1.6;
+  --text-eyebrow: 0.8125rem;
+  --text-eyebrow--line-height: 1.4;
+  --text-eyebrow--letter-spacing: 0.08em;
+
+  /* ---------- Radius ---------- */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-2xl: 28px;
+
+  /* ---------- Shadows ---------- */
+  --shadow-card: 0 2px 8px rgb(15 45 74 / 0.06), 0 1px 3px rgb(15 45 74 / 0.04);
+  --shadow-lift: 0 12px 32px -8px rgb(15 45 74 / 0.18), 0 4px 8px rgb(15 45 74 / 0.06);
+  --shadow-float: 0 24px 64px -16px rgb(15 45 74 / 0.28);
+  --shadow-glow: 0 0 0 1px rgb(58 174 232 / 0.3), 0 8px 32px rgb(58 174 232 / 0.35);
+
+  /* ---------- Motion ---------- */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+
+  /* ---------- Keyframes ---------- */
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-blob: blob 18s ease-in-out infinite;
+  --animate-pulse-ring: pulse-ring 2s var(--ease-out-quart) infinite;
+  --animate-spin-border: spin-border 6s linear infinite;
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @keyframes float {
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  @keyframes blob {
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+    33% {
+      transform: translate(30px, -40px) scale(1.08);
+    }
+    66% {
+      transform: translate(-20px, 20px) scale(0.95);
+    }
+  }
+  @keyframes pulse-ring {
+    0% {
+      transform: scale(0.9);
+      opacity: 0.7;
+    }
+    100% {
+      transform: scale(1.8);
+      opacity: 0;
+    }
+  }
+  @keyframes spin-border {
+    to {
+      --angle: 360deg;
+    }
+  }
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+/* ---------- Above-the-fold entrances (CSS, so they run before hydration) ----------
+   Hero content must paint from the pre-rendered HTML; JS-driven `initial: hidden` delays FCP/LCP until all JS loads. */
+.enter,
+.enter-word,
+.enter-visual {
+  animation-fill-mode: both;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  animation-delay: var(--d, 0s);
+}
+.enter {
+  animation-name: enter-up;
+  animation-duration: 0.7s;
+}
+.enter-word {
+  animation-name: enter-word;
+  animation-duration: 0.7s;
+}
+.enter-visual {
+  animation-name: enter-visual;
+  animation-duration: 0.9s;
+  animation-delay: var(--d, 0.3s);
+  transform-origin: 50% 0%;
+}
+@keyframes enter-up {
+  from {
+    opacity: 0.01;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes enter-word {
+  from {
+    opacity: 0.01;
+    transform: translateY(24px);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+@keyframes enter-visual {
+  from {
+    opacity: 0.01;
+    transform: perspective(1400px) translateY(40px) scale(0.96) rotateX(8deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- Premium hero backdrop (HeroBackdrop.tsx) ---------- */
+.hero-backdrop {
+  --hb-1: var(--color-brand-400);
+  --hb-2: var(--color-brand-300);
+  --hb-3: var(--color-accent-500);
+  --hb-4: var(--color-info-500);
+  --hb-line: rgb(29 110 168 / 0.17);
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  isolation: isolate;
+}
+.hero-backdrop[data-palette="accent"] {
+  --hb-1: var(--color-accent-500);
+  --hb-2: var(--color-brand-300);
+  --hb-3: var(--color-warning-500);
+  --hb-4: var(--color-brand-400);
+  --hb-line: rgb(208 74 26 / 0.14);
+}
+.hero-backdrop[data-palette="aurora"] {
+  --hb-1: var(--color-brand-400);
+  --hb-2: var(--color-info-500);
+  --hb-3: var(--color-accent-500);
+  --hb-4: var(--color-success-500);
+}
+.hero-backdrop[data-paused="true"] *,
+.hero-backdrop[data-paused="true"] *::before,
+.hero-backdrop[data-paused="true"] *::after {
+  animation-play-state: paused !important;
+}
+
+/* soft wash so the top of every hero is airy, not flat white */
+.hb-wash {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 70% at 50% -10%, color-mix(in oklab, var(--hb-2) 22%, transparent), transparent 70%),
+    linear-gradient(to bottom, var(--color-brand-50), white 75%);
+}
+
+/* aurora — large blurred colour fields that drift and breathe */
+.hb-aurora {
+  position: absolute;
+  border-radius: 9999px;
+
+  opacity: 0.55;
+
+  will-change: transform;
+}
+.hb-aurora-1 {
+  top: -18%;
+  left: -8%;
+  width: 46vw;
+  height: 46vw;
+  max-width: 640px;
+  max-height: 640px;
+  background: radial-gradient(circle at 50% 50%, var(--hb-1), transparent 70%);
+  animation: hb-drift-a 22s ease-in-out infinite;
+}
+.hb-aurora-2 {
+  top: -10%;
+  right: -10%;
+  width: 42vw;
+  height: 42vw;
+  max-width: 600px;
+  max-height: 600px;
+  background: radial-gradient(circle at 50% 50%, var(--hb-2), transparent 70%);
+  opacity: 0.4;
+  animation: hb-drift-b 26s ease-in-out infinite;
+}
+.hb-aurora-3 {
+  top: 30%;
+  left: 35%;
+  width: 34vw;
+  height: 34vw;
+  max-width: 480px;
+  max-height: 480px;
+  background: radial-gradient(circle, var(--hb-3), transparent 70%);
+  opacity: 0.18;
+  animation: hb-drift-c 30s ease-in-out infinite;
+}
+.hb-aurora-4 {
+  top: 10%;
+  left: 55%;
+  width: 26vw;
+  height: 26vw;
+  max-width: 380px;
+  max-height: 380px;
+  background: radial-gradient(circle, var(--hb-4), transparent 70%);
+  opacity: 0.16;
+  animation: hb-drift-a 34s ease-in-out infinite reverse;
+}
+
+@keyframes hb-drift-a {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+  }
+  33% {
+    transform: translate3d(6%, 8%, 0) scale(1.12) rotate(20deg);
+  }
+  66% {
+    transform: translate3d(-4%, 4%, 0) scale(0.94) rotate(-12deg);
+  }
+}
+@keyframes hb-drift-b {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-10%, 12%, 0) scale(1.15);
+  }
+}
+@keyframes hb-drift-c {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(0.9);
+  }
+  40% {
+    transform: translate3d(-18%, -10%, 0) scale(1.1);
+  }
+  70% {
+    transform: translate3d(12%, 6%, 0) scale(1);
+  }
+}
+
+/* light beams from the top centre, gently swaying */
+.hb-beams {
+  position: absolute;
+  top: -35%;
+  left: 50%;
+  width: 1400px;
+  height: 1100px;
+  margin-left: -700px;
+  background: conic-gradient(
+    from 180deg at 50% 0%,
+    transparent 0deg,
+    color-mix(in oklab, var(--hb-1) 32%, transparent) 8deg,
+    transparent 16deg,
+    transparent 150deg,
+    color-mix(in oklab, var(--hb-2) 18%, transparent) 162deg,
+    transparent 172deg,
+    transparent 188deg,
+    color-mix(in oklab, var(--hb-1) 18%, transparent) 198deg,
+    transparent 210deg,
+    transparent 344deg,
+    color-mix(in oklab, var(--hb-2) 32%, transparent) 352deg,
+    transparent 360deg
+  );
+  mask-image: radial-gradient(closest-side at 50% 0%, black 20%, transparent 100%);
+
+  transform-origin: 50% 0%;
+  animation: hb-sway 16s ease-in-out infinite;
+}
+@keyframes hb-sway {
+  0%,
+  100% {
+    transform: rotate(-6deg);
+    opacity: 0.8;
+  }
+  50% {
+    transform: rotate(6deg);
+    opacity: 1;
+  }
+}
+
+/* perspective grid floor that scrolls slowly toward the viewer */
+.hb-grid {
+  position: absolute;
+  left: -50%;
+  right: -50%;
+  bottom: -10%;
+  height: 70%;
+  overflow: hidden;
+  transform: perspective(520px) rotateX(62deg);
+  transform-origin: 50% 100%;
+  mask-image: linear-gradient(to top, transparent 0%, black 35%, black 55%, transparent 95%);
+}
+/* the grid texture moves with transform (compositor-only), not background-position (repaints every frame) */
+.hb-grid::before {
+  content: "";
+  position: absolute;
+  inset: -56px 0 0 0;
+  background-image:
+    linear-gradient(to right, var(--hb-line) 1px, transparent 1px), linear-gradient(to bottom, var(--hb-line) 1px, transparent 1px);
+  background-size: 56px 56px;
+  will-change: transform;
+  animation: hb-grid-pan 9s linear infinite;
+}
+@keyframes hb-grid-pan {
+  to {
+    transform: translate3d(0, 56px, 0);
+  }
+}
+
+/* twinkling particles */
+.hb-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 9999px;
+  background: var(--hb-1);
+  box-shadow: 0 0 10px 2px color-mix(in oklab, var(--hb-1) 55%, transparent);
+  opacity: 0;
+  animation: hb-twinkle 6s ease-in-out infinite;
+}
+@keyframes hb-twinkle {
+  0%,
+  100% {
+    opacity: 0;
+    transform: translateY(0) scale(0.6);
+  }
+  40% {
+    opacity: 0.85;
+    transform: translateY(-14px) scale(1);
+  }
+  70% {
+    opacity: 0.3;
+    transform: translateY(-26px) scale(0.8);
+  }
+}
+
+/* cursor spotlight (fine pointers only; vars set in JS) */
+.hb-spot {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 500ms;
+  background: radial-gradient(
+    520px circle at var(--hb-x, 50%) var(--hb-y, 30%),
+    color-mix(in oklab, var(--hb-1) 16%, transparent),
+    transparent 65%
+  );
+}
+.hero-backdrop[data-spot="on"] .hb-spot {
+  opacity: 1;
+}
+
+/* orbit rings behind the content */
+.hb-rings {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1100px;
+  height: 1100px;
+  margin: -550px 0 0 -550px;
+  border-radius: 9999px;
+  background: repeating-radial-gradient(circle, transparent 0 89px, color-mix(in oklab, var(--hb-1) 10%, transparent) 89px 90px);
+  mask-image: radial-gradient(circle, black 15%, transparent 65%);
+  animation: hb-breathe 12s ease-in-out infinite;
+}
+@keyframes hb-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.06);
+    opacity: 1;
+  }
+}
+
+.hb-grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.hb-fade {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 28%;
+  background: linear-gradient(to bottom, transparent, white);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-backdrop *,
+  .hero-backdrop *::before {
+    animation: none !important;
+  }
+  .hb-particle {
+    opacity: 0.5;
+  }
+}
+@media (width < 48rem) {
+  .hb-beams {
+    width: 900px;
+    margin-left: -450px;
+    height: 800px;
+  }
+}
+
+/* ---------- Utilities ---------- */
+@utility text-gradient-animated {
+  background: linear-gradient(
+    100deg,
+    var(--color-brand-600) 0%,
+    var(--color-brand-400) 30%,
+    var(--color-info-500) 50%,
+    var(--color-brand-400) 70%,
+    var(--color-brand-600) 100%
+  );
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: text-shimmer 8s ease-in-out infinite;
+}
+@utility text-gradient-warm {
+  background: linear-gradient(
+    100deg,
+    var(--color-accent-600) 0%,
+    var(--color-accent-500) 35%,
+    var(--color-warning-500) 50%,
+    var(--color-accent-500) 65%,
+    var(--color-accent-600) 100%
+  );
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: text-shimmer 8s ease-in-out infinite;
+}
+@keyframes text-shimmer {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@utility container-page {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 1240px;
+  padding-inline: 1rem;
+  @media (width >= 40rem) {
+    padding-inline: 1.5rem;
+  }
+  @media (width >= 64rem) {
+    padding-inline: 2rem;
+  }
+}
+@utility section-y {
+  padding-block: 4rem;
+  @media (width >= 48rem) {
+    padding-block: 6rem;
+  }
+  @media (width >= 80rem) {
+    padding-block: 7.5rem;
+  }
+}
+@utility text-gradient {
+  background: linear-gradient(90deg, var(--color-brand-600), var(--color-brand-400));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@utility text-gradient-dark {
+  background: linear-gradient(90deg, var(--color-brand-300), var(--color-brand-400));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@utility bg-dot-grid {
+  background-image: radial-gradient(rgb(15 45 74 / 0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+  mask-image: radial-gradient(ellipse at center, black 40%, transparent 75%);
+}
+@utility bg-dot-grid-dark {
+  background-image: radial-gradient(rgb(255 255 255 / 0.07) 1px, transparent 1px);
+  background-size: 24px 24px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+}
+@utility bg-gradient-primary {
+  background-image: linear-gradient(135deg, var(--color-brand-600), var(--color-brand-500));
+}
+@utility bg-gradient-logo {
+  background-image: linear-gradient(135deg, var(--color-brand-600), var(--color-brand-400));
+}
+@utility bg-gradient-night {
+  background-image: linear-gradient(135deg, #0a1929 0%, #0f2d4a 40%, #1d5080 100%);
+}
+@utility grain {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+@utility spotlight {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 300ms;
+    background: radial-gradient(
+      400px circle at var(--x, 50%) var(--y, 50%),
+      color-mix(in oklab, var(--t5) 11%, transparent),
+      transparent 60%
+    );
+  }
+  @media (hover: hover) and (pointer: fine) {
+    &:hover::before {
+      opacity: 1;
+    }
+  }
+}
+@utility mask-fade-x {
+  mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+}
+@utility rotating-border {
+  background:
+    linear-gradient(white, white) padding-box,
+    conic-gradient(from var(--angle), var(--color-brand-600), var(--color-brand-300), var(--color-accent-500), var(--color-brand-600))
+      border-box;
+  border: 2px solid transparent;
+  animation: var(--animate-spin-border);
+}
+@utility glass-dark {
+  background: rgb(255 255 255 / 0.05);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgb(255 255 255 / 0.1);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.08);
+}
+
+/* ---------- Icon tones ----------
+   A `tone-*` class sets --t1/--t3/--t5/--t7 (soft · light · mid · deep). The `*-tone*` colours, tile utilities, spotlight
+   and card-glow read them, so one class re-hues a whole card. Defaults to brand. */
+@theme inline {
+  --color-tone-soft: var(--t1);
+  --color-tone-light: var(--t3);
+  --color-tone: var(--t5);
+  --color-tone-deep: var(--t7);
+}
+:root {
+  --t1: var(--color-brand-100);
+  --t3: var(--color-brand-300);
+  --t5: var(--color-brand-500);
+  --t7: var(--color-brand-600);
+}
+@utility tone-brand {
+  --t1: var(--color-brand-100);
+  --t3: var(--color-brand-300);
+  --t5: var(--color-brand-500);
+  --t7: var(--color-brand-600);
+}
+@utility tone-sky {
+  --t1: var(--color-sky-100);
+  --t3: var(--color-sky-300);
+  --t5: var(--color-sky-500);
+  --t7: var(--color-sky-700);
+}
+@utility tone-violet {
+  --t1: var(--color-violet-100);
+  --t3: var(--color-violet-300);
+  --t5: var(--color-violet-500);
+  --t7: var(--color-violet-700);
+}
+@utility tone-indigo {
+  --t1: var(--color-indigo-100);
+  --t3: var(--color-indigo-300);
+  --t5: var(--color-indigo-500);
+  --t7: var(--color-indigo-700);
+}
+@utility tone-emerald {
+  --t1: var(--color-emerald-100);
+  --t3: var(--color-emerald-300);
+  --t5: var(--color-emerald-500);
+  --t7: var(--color-emerald-700);
+}
+@utility tone-teal {
+  --t1: var(--color-teal-100);
+  --t3: var(--color-teal-300);
+  --t5: var(--color-teal-500);
+  --t7: var(--color-teal-700);
+}
+@utility tone-rose {
+  --t1: var(--color-rose-100);
+  --t3: var(--color-rose-300);
+  --t5: var(--color-rose-500);
+  --t7: var(--color-rose-700);
+}
+@utility tone-amber {
+  --t1: var(--color-amber-100);
+  --t3: var(--color-amber-300);
+  --t5: var(--color-amber-500);
+  --t7: var(--color-amber-700);
+}
+@utility tone-orange {
+  --t1: var(--color-orange-100);
+  --t3: var(--color-orange-300);
+  --t5: var(--color-orange-500);
+  --t7: var(--color-orange-700);
+}
+
+/* glossy soft tile: light gradient, inner highlight, hue hairline + coloured shadow */
+@utility tile-gloss {
+  color: var(--t7);
+  background: linear-gradient(
+    150deg,
+    color-mix(in oklab, var(--t1) 40%, white),
+    var(--t1) 55%,
+    color-mix(in oklab, var(--t1) 80%, var(--t3))
+  );
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.9),
+    inset 0 0 0 1px color-mix(in oklab, var(--t5) 16%, transparent),
+    0 6px 14px -6px color-mix(in oklab, var(--t5) 45%, transparent);
+}
+/* emphasis tile: white icon on a hue gradient */
+@utility tile-solid {
+  color: white;
+  background: linear-gradient(140deg, color-mix(in oklab, var(--t5) 80%, white), var(--t7));
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.3),
+    0 8px 18px -8px color-mix(in oklab, var(--t5) 75%, transparent);
+}
+/* hue-tinted glass for dark sections */
+@utility tile-glass {
+  color: var(--t3);
+  background: linear-gradient(150deg, color-mix(in oklab, var(--t5) 34%, transparent), color-mix(in oklab, var(--t5) 8%, transparent));
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.14),
+    inset 0 0 0 1px color-mix(in oklab, var(--t3) 22%, transparent),
+    0 8px 24px -10px color-mix(in oklab, var(--t5) 65%, transparent);
+}
+/* 1px hue gradient ring (inside the border) that fades in on hover/focus; parent must be positioned + rounded */
+@utility card-glow {
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    padding: 1px;
+    border-radius: inherit;
+    pointer-events: none;
+    background: linear-gradient(
+      135deg,
+      var(--t5),
+      color-mix(in oklab, var(--t3) 40%, transparent) 40%,
+      transparent 60%,
+      color-mix(in oklab, var(--t5) 60%, transparent)
+    );
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 300ms;
+  }
+  &:hover::after,
+  &:focus-within::after {
+    opacity: 1;
+  }
+}
+/* light sweep across a button on hover */
+@utility sheen {
+  overflow: hidden;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 45%;
+    pointer-events: none;
+    background: linear-gradient(100deg, transparent, rgb(255 255 255 / 0.28), transparent);
+    transform: translateX(-130%) skewX(-18deg);
+  }
+  @media (hover: hover) {
+    &:hover::before {
+      transform: translateX(330%) skewX(-18deg);
+      transition: transform 750ms var(--ease-out-quart);
+    }
+  }
+}
+/* static colour washes for light sections (radial gradients — no blur) */
+@utility deco-blobs {
+  background-image:
+    radial-gradient(36rem 22rem at 0% 0%, color-mix(in oklab, var(--color-brand-200) 30%, transparent), transparent 70%),
+    radial-gradient(30rem 20rem at 100% 100%, color-mix(in oklab, var(--color-violet-100) 85%, transparent), transparent 70%),
+    radial-gradient(22rem 16rem at 100% 0%, color-mix(in oklab, var(--color-accent-100) 70%, transparent), transparent 70%);
+}
+/* soft hairline across the top of tinted sections */
+@utility section-edge {
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    inset-inline: 8%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-brand-200), var(--color-violet-300), var(--color-brand-200), transparent);
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: auto;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-white font-sans text-base text-gray-600 antialiased;
+    line-height: 1.65;
+    text-rendering: optimizeLegibility;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display text-brand-900;
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  ::selection {
+    @apply bg-brand-200 text-brand-900;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand-500;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---------- Load-time performance ----------
+   Ambient, decorative loops (aurora, beams, grid, particles, floats, marquees, shimmer, rotating borders) are held
+   on their first frame until the page has loaded (`html.ready`, set in root.tsx), so they don't compete with
+   first paint. Entrance animations (.enter*) are not affected. */
+html:not(.ready) .hero-backdrop *,
+html:not(.ready) .hero-backdrop *::before,
+html:not(.ready) [class*="animate-"],
+html:not(.ready) .text-gradient-animated,
+html:not(.ready) .text-gradient-warm,
+html:not(.ready) .rotating-border {
+  animation-play-state: paused !important;
+}
+
+/* Below-the-fold sections skip rendering work until they approach the viewport. */
+.cv-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
+}
